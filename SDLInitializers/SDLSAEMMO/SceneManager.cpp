@@ -17,7 +17,7 @@ void SceneManager::ChangeScene(Scene * const& _scene)
 
 SceneManager * SceneManager::GetSceneManager()
 {
-	return sceneManager == nullptr ? new SceneManager() : sceneManager;
+	return sceneManager == nullptr ? sceneManager = new SceneManager() : sceneManager;
 }
 
 Scene * SceneManager::GetCurrentScene()

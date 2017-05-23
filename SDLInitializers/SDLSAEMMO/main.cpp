@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
 	//Paso numero 1, inicializar la App.
 	RPGSAEMMOApp app;
-	app.App(800, 800, "TEST", INITIALPARAMS, 60, new MainScene());
+	app.App(800, 800, "TEST", SDL_WINDOW_RESIZABLE, 60, new MainScene());
 	return 0;
 }
 

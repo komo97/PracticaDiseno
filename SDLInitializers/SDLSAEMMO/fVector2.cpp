@@ -1,6 +1,6 @@
 #include "fVector2.h"
 
-
+fVector2 fVector2::zero(0,0);
 
 fVector2::fVector2()
 {
@@ -14,9 +14,21 @@ fVector2::fVector2(float _x, float _y)
 	y = _y;
 }
 
+fVector2::fVector2(const fVector2 & cpy)
+{
+	x = cpy.x;
+	y = cpy.y;
+}
+
 
 fVector2::~fVector2()
 {
+}
+
+float fVector2::Distance(fVector2 & p2)
+{
+	fVector2 lhs(*this);
+	return lhs.Sum(p2 * -1).Lenght();
 }
 
 fVector3 fVector2::Cross(const fVector2 & p2)
@@ -64,10 +76,17 @@ fVector2 fVector2::Div(const float & p2)
 	return *this;
 }
 
-fVector2 fVector2::Rotate(float ang)
+fVector2 fVector2::Unit()
 {
+	return *this / (this->Lenght());
+}
+
+fVector2 fVector2::Rotate(float ang, fVector2 center)
+{
+	this->Sum(center * -1);
 	this->x = (x*cosf(degToRad*ang)) - (y*sinf(degToRad*ang));
 	this->y = (x*sinf(degToRad*ang)) + (y*cosf(degToRad*ang));
+	this->Sum(center);
 	return *this;
 }
 
@@ -80,11 +99,11 @@ std::vector<fVector2> fVector2::Translate(std::vector<fVector2>& p, const fVecto
 	return p;
 }
 
-std::vector<fVector2> fVector2::Rotate(std::vector<fVector2>& p, float ang)
+std::vector<fVector2> fVector2::Rotate(std::vector<fVector2>& p, fVector2 center, float ang)
 {
 	for (auto i : p)
 	{
-		i.Rotate(ang);
+		i.Rotate(ang, center);
 	}
 	return p;
 }
@@ -98,52 +117,69 @@ std::vector<fVector2> fVector2::Scale(std::vector<fVector2>& p, float scale)
 	return p;
 }
 
-fVector2 & fVector2::operator+=(const fVector2 & rhs)
+fVector2 fVector2::operator+=(const fVector2 & rhs)
 {
-	return Sum(rhs);
+	return this->Sum(rhs);
 }
 
-fVector2 & fVector2::operator-=(fVector2 & rhs)
+fVector2 fVector2::operator-=(fVector2 & rhs)
 {
-	return Sum(rhs * -1);
+	return this->Sum(rhs * -1);
 }
 
 float fVector2::operator*=(const fVector2 & rhs)
 {
-	return Dot(rhs);
+	return this->Dot(rhs);
 }
 
-fVector2& fVector2::operator*=(const float & rhs)
+fVector2 fVector2::operator*=(const float & rhs)
 {
-	return Mult(rhs);
+	return this->Mult(rhs);
 }
 
-fVector2& fVector2::operator/=(const float & rhs)
+fVector2 fVector2::operator/=(const float & rhs)
 {
-	return Div(rhs);
+	return this->Div(rhs);
 }
 
-fVector2 operator+(fVector2 & lhs, const fVector2 & rhs)
+fVector2 & fVector2::operator=(const fVector2 & rhs)
+{
+	this->x = rhs.x;
+	this->y = rhs.y;
+	return *this;
+}
+
+bool fVector2::operator==(const fVector2 & rhs)
+{
+	return (x == rhs.x && y == rhs.y);
+}
+
+bool fVector2::operator!=(const fVector2 & rhs)
+{
+	return (x != rhs.x || y != rhs.y);
+}
+
+fVector2 operator+(fVector2 lhs, const fVector2 & rhs)
 {
 	return lhs.Sum(rhs);
 }
 
-fVector2 operator-(fVector2 & lhs, fVector2 & rhs)
+fVector2 operator-(fVector2 lhs, fVector2 & rhs)
 {
 	return lhs.Sum(rhs * -1);
 }
 
-float operator*(fVector2 & lhs, const fVector2 & rhs)
+float operator*(fVector2 lhs, const fVector2 & rhs)
 {
 	return lhs.Dot(rhs);
 }
 
-fVector2 operator*(fVector2 & lhs, const float & rhs)
+fVector2 operator*(fVector2 lhs, const float & rhs)
 {
 	return lhs.Mult(rhs);
 }
 
-fVector2 operator/(fVector2 & lhs, const float & rhs)
+fVector2 operator/(fVector2 lhs, const float & rhs)
 {
 	return lhs.Div(rhs);
 }

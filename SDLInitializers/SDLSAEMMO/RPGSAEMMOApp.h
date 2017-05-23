@@ -1,14 +1,14 @@
 #pragma once
 #include <SDL.h>
-#include "SceneManager.h"
 #include <queue>
 #include <functional>
 #include <SDL_mixer.h>
 #include <vector>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
+#include <chrono>
+#include "SceneManager.h"
 
-#define IMGFLAGS IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF
 class RPGSAEMMOApp
 {
 public:
@@ -29,11 +29,13 @@ public:
 	inline static bool QueueHasCleared() { return queueIsCleared; }
 	static void ClearDrawQueue();
 	static void AddToDrawQueue(std::function<void()> f);
+	inline static long long getDeltaTime() { return dT; }
+	inline static std::chrono::milliseconds getPhysicsTimeSinceStart() { return physicsTimeSinceStart; }
 private:
 	void Init();
 	static int Draw(void *ptr);
+	static long long dT;
 	static void DrawStep();
-	static SceneManager* sceneManager;
 	static int windowSizeX;
 	static int windowSizeY;
 	static SDL_Window *window;
@@ -43,10 +45,15 @@ private:
 	SDL_Event event;
 	uint32_t winParams;
 	SDL_Thread *drawThread;
+	SDL_Thread *physicsThread;
 	static std::queue<std::function<void()>> drawQueue;
 	static SDL_bool appIsClosing;
 	static SDL_mutex* drawMutex;
 	static int frameLock;
 	static bool queueIsCleared;
+	static std::chrono::milliseconds physicsTimeSinceStart;
+	static std::chrono::milliseconds physicsTimeStart;
+	static std::chrono::milliseconds deltaTime;
+	static int Physics(void *ptr);
 };
 

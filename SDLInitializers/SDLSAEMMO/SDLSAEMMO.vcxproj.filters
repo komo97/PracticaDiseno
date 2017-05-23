@@ -28,6 +28,15 @@
     <Filter Include="Header Files\Math">
       <UniqueIdentifier>{dbce22b7-26e7-4439-967b-82ec9867e3c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{3712f2b3-116f-4fbc-9fac-eebb73dfe030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math\Physics">
+      <UniqueIdentifier>{15da945f-8536-4d97-a264-b24df8300867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math\Physics">
+      <UniqueIdentifier>{2723b81e-44e4-46dd-a424-d5b9cc62f64f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,11 +57,17 @@
     <ClCompile Include="Character.cpp">
       <Filter>Source Files\Base classes</Filter>
     </ClCompile>
-    <ClCompile Include="fVector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="fVector3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="fVector2.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics2D.cpp">
+      <Filter>Source Files\Math\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics2DComponent.cpp">
+      <Filter>Source Files\Math\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +91,15 @@
     </ClInclude>
     <ClInclude Include="fVector2.h">
       <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics2D.h">
+      <Filter>Header Files\Math\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics2DComponent.h">
+      <Filter>Header Files\Math\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsRect2D.h">
+      <Filter>Header Files\Math\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
